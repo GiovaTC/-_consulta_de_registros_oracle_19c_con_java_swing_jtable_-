@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.stream.events.StartElement;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,18 +21,46 @@ public class ConsultaPersonas extends JFrame {
     public ConsultaPersonas() {
         setTitle("Consulta de personas - oracle 19 c");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Tabla 2 x N (2 columnas)
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+
+        tabla = new JTable(modelo);
+        JScrollPane scroll = new JScrollPane(tabla);
+
+        add(scroll, BorderLayout.CENTER);
+
+        cargarDatos();
+    }
+
+    private void cargarDatos() {
+        try (Connection conn = DriverManager.getConnection(URL, USER,  PASS);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT ID, NOMBRE FROM PERSONA")) {
+
+            while (rs.next()) {
+                Object[] fila = {
+                        rs.getInt("ID"),
+                        rs.getString("NOMBRE")
+                };
+                modelo.addRow(fila);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+            "Error al consultar la base de datos:\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+       SwingUtilities.invokeLater(() -> {
+          new ConsultaPersonas().setVisible(true);
+       });
     }
-}
+}   
