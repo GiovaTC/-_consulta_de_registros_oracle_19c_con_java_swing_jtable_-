@@ -1,7 +1,9 @@
 # -_consulta_de_registros_oracle_19c_con_java_swing_jtable_- :. 
 # Consulta de Registros Oracle 19c con Java Swing (JTable):
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/dde0d1d4-fa9b-4a51-846f-7caf4684162e" />    
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/dde0d1d4-fa9b-4a51-846f-7caf4684162e" />        
+
+<img width="2548" height="1079" alt="image" src="https://github.com/user-attachments/assets/2c858980-75d9-4957-aa94-46150da8e2e0" />        
 
 A continuación se presenta una solución completa, profesional y ejecutable, alineada con buenas prácticas académicas, que cumple exactamente con lo solicitado:
 
